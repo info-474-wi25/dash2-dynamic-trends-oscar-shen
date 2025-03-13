@@ -68,7 +68,6 @@ d3.csv("aircraft_incidents.csv").then(data => {
         .attr("y", -20)
         .attr("text-anchor", "middle")
         .attr("class", "chart-title")
-        .text("Annual Aircraft Incidents");
 
     svg1_IncidentsTrend.append("text")
         .attr("x", width / 2)
@@ -89,8 +88,8 @@ d3.csv("aircraft_incidents.csv").then(data => {
         .join("circle")
         .attr("cx", d => xScale1(d.year))
         .attr("cy", d => yScale1(d.count))
-        .attr("r", 5)
-        .attr("fill", "orange")
+        .attr("r", 4)
+        .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
                 .html(`Year: ${d.year}<br>Incidents: ${d.count}`)
@@ -119,15 +118,16 @@ d3.csv("aircraft_incidents.csv").then(data => {
                 .attr("class", "highlighted-point")
                 .attr("cx", xScale1(selectedData.year))
                 .attr("cy", yScale1(selectedData.count))
-                .attr("r", 8)
-                .attr("fill", "red")
-                .attr("stroke", "black")
-                .attr("stroke-width", 2);
-
-            tooltip.style("opacity", 1)
-                .html(`Year: ${selectedData.year}<br>Incidents: ${selectedData.count}`)
-                .style("left", `${xScale1(selectedData.year) + margin.left + 10}px`)
-                .style("top", `${yScale1(selectedData.count) + margin.top - 10}px`);
+                .attr("r", 5)
+                .attr("fill", "tomato")
+                .attr("stroke-width", 2)
+                .on("mouseover", (event, d) => {
+                    tooltip.style("opacity", 1)
+                        .html(`Year: ${selectedData.year}<br>Incidents: ${selectedData.count}`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px");
+                })
+                .on("mouseout", () => tooltip.style("opacity", 0));
         }
     }
 
