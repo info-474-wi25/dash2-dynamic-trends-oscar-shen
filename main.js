@@ -28,8 +28,6 @@ d3.csv("aircraft_incidents.csv").then(data => {
     data.forEach(d => {
         d.Year = +d.year || +d.Year;  // Handle either 'year' or 'Year' columns
     });
-
-    // Aggregate incidents per year
     const yearCounts = d3.rollups(data, v => v.length, d => d.Year);
     const incidentsData = yearCounts.map(d => ({ year: d[0], count: d[1] })).sort((a, b) => a.year - b.year);
 
